@@ -58,12 +58,6 @@
 
 		document.addEventListener('paste', handleGlobalPaste);
 
-		// Log demo instructions
-		console.log('🔐 Two Factor Authentication Demo');
-		console.log('📱 Use code "123456" to see success state');
-		console.log('❌ Any other 6-digit code will show error state');
-		console.log('🔄 You can change the correct code using the component methods');
-
 		// Cleanup function
 		return () => {
 			document.removeEventListener('paste', handleGlobalPaste);
@@ -342,16 +336,6 @@
 			}, 400);
 		}
 	}
-
-	// Public methods
-	export function setCorrectCode(code) {
-		correctCode = code;
-	}
-
-	export function reset() {
-		setState('default', 'Enter 6-digit code from your two factor authenticator APP');
-		currentState = 'default';
-	}
 </script>
 
 <svelte:head>
@@ -464,7 +448,7 @@
 
 			<!-- Action Button -->
 			<button
-				class="action-button relative w-full py-4 rounded-xl border-none cursor-pointer  font-semibold  transition-all duration-200 ease-in-out overflow-hidden
+				class="action-button relative py-4 rounded-xl border-none cursor-pointer font-semibold transition-all duration-200 ease-in-out overflow-hidden otp-button-width
 					{isButtonDisabled ? 'opacity-60 cursor-not-allowed transform-none shadow-none bg-[#cdcdcd] text=[#cdcdcd]' :
 					 currentState === 'error' ? 'bg-[#ff4359] text-white hover:shadow-[0px_4px_12px_rgba(255,59,48,0.3)] hover:-translate-y-0.5 active:translate-y-0' :
 					 'bg-[#007AFF] text-white hover:shadow-[0px_4px_12px_rgba(0,122,255,0.3)] hover:-translate-y-0.5 active:translate-y-0'}
@@ -477,7 +461,9 @@
 				{/if}
 				<span class="relative z-10">
 					{#if isLoading}
-						<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 border-2 border-transparent border-t-white rounded-full animate-spin"></div>
+						<div class="flex items-center justify-center h-6">
+							<div class="w-5 h-5 border-2 border-transparent border-t-white rounded-full animate-spin"></div>
+						</div>
 					{:else}
 						{buttonText}
 					{/if}
@@ -618,6 +604,15 @@
 			width: 16px !important;
 			height: 2px !important;
 		}
+
+		:global(.otp-button-width) {
+			width: calc(6 * 42px + 5 * 12px + 13px) !important;
+		}
+	}
+
+	/* Button width calculation to match OTP input group */
+	:global(.otp-button-width) {
+		width: calc(6 * 48px + 5 * 12px + 13px);
 	}
 
 	/* Lock animations */
