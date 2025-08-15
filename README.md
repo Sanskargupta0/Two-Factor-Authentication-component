@@ -2,6 +2,27 @@
 
 A beautiful, responsive, and accessible Two-Factor Authentication (2FA) component built with SvelteKit and Tailwind CSS. Features smooth animations, comprehensive keyboard navigation, and production-ready security considerations.
 
+## 📸 Demo & Screenshots
+
+### 🎥 Video Demo
+![Two-Factor Authentication Demo](screenshots/original.mp4)
+
+*Watch the complete demonstration of the Two-Factor Authentication component in action*
+
+### 📱 Screenshots
+
+#### Base State
+![Base State](screenshots/base.jpg)
+*Clean, modern interface in the default state*
+
+#### Success State
+![Success State](screenshots/success.jpg)
+*Visual feedback when authentication is successful*
+
+#### Error State
+![Error State](screenshots/error.jpg)
+*Clear error indication for invalid codes*
+
 ## ✨ Features
 
 ### 🎨 **Visual Design**
@@ -35,6 +56,26 @@ A beautiful, responsive, and accessible Two-Factor Authentication (2FA) componen
 - Event callbacks
 - Easy integration
 - Well-documented code
+
+## 🎯 Assignment Completion
+
+This Two-Factor Authentication component was developed as part of a **Frontend Developer Assessment** challenge. The task was to build a functional 2FA component using JavaScript and Svelte, focusing on:
+
+- ✅ Modern UI/UX design
+- ✅ Smooth animations and transitions
+- ✅ Comprehensive keyboard navigation
+- ✅ Accessibility compliance
+- ✅ Mobile responsiveness
+- ✅ Production-ready code quality
+
+**Assessment Requirements Met:**
+- **Framework**: Built with SvelteKit
+- **Styling**: Tailwind CSS with custom animations
+- **Functionality**: Complete 2FA input handling
+- **User Experience**: Intuitive and accessible interface
+- **Code Quality**: Clean, documented, and maintainable code
+
+*See the `screenshots/Frontend Developer Assesment.pdf` for the original assignment details.*
 
 ## 📦 Installation
 
@@ -73,97 +114,6 @@ pnpm dev
 http://localhost:5173
 ```
 
-## 🚀 Usage
-
-### Basic Implementation
-
-```svelte
-<script>
-  import TwoFactorAuth from '$lib/components/TwoFactorAuth.svelte';
-  
-  let twoFactorRef;
-  
-  function handleSuccess(code) {
-    console.log('2FA Success:', code);
-    // Handle successful verification
-  }
-  
-  function handleError(error) {
-    console.log('2FA Error:', error);
-    // Handle verification error
-  }
-</script>
-
-<TwoFactorAuth 
-  bind:this={twoFactorRef}
-  correctCode="123456"
-  on:success={handleSuccess}
-  on:error={handleError}
-/>
-```
-
-### Advanced Configuration
-
-```svelte
-<script>
-  import TwoFactorAuth from '$lib/components/TwoFactorAuth.svelte';
-  
-  let twoFactorRef;
-  
-  // Custom verification function
-  async function verifyCode(code) {
-    try {
-      const response = await fetch('/api/verify-2fa', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code })
-      });
-      
-      return response.ok;
-    } catch (error) {
-      console.error('Verification failed:', error);
-      return false;
-    }
-  }
-</script>
-
-<TwoFactorAuth 
-  bind:this={twoFactorRef}
-  {verifyCode}
-  placeholder="Enter authentication code"
-  loadingText="Verifying..."
-  successText="Welcome!"
-  errorText="Invalid code. Please try again."
-  autoSubmit={true}
-  maxAttempts={3}
-/>
-```
-
-## 📚 API Reference
-
-### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `correctCode` | `string` | `"123456"` | Expected authentication code (demo mode) |
-| `verifyCode` | `function` | `null` | Custom verification function |
-| `autoSubmit` | `boolean` | `true` | Auto-submit when all digits are filled |
-| `placeholder` | `string` | `"Enter 6-digit code..."` | Status text placeholder |
-| `loadingText` | `string` | `"Verifying..."` | Text shown during verification |
-| `successText` | `string` | `"Success!"` | Text shown on successful verification |
-| `errorText` | `string` | `"Invalid code"` | Text shown on verification failure |
-| `maxAttempts` | `number` | `null` | Maximum verification attempts |
-| `disabled` | `boolean` | `false` | Disable the component |
-
-### Methods
-
-| Method | Parameters | Description |
-|--------|------------|-------------|
-| `reset()` | None | Reset component to initial state |
-| `setCorrectCode(code)` | `code: string` | Update the expected code (demo mode) |
-| `focus()` | None | Focus the first input field |
-| `clear()` | None | Clear all input fields |
-| `setValue(code)` | `code: string` | Set the current code value |
 
 ### Events
 
@@ -217,69 +167,6 @@ The component uses Tailwind CSS and CSS custom properties for easy customization
 }
 ```
 
-## 🔒 Security Considerations
-
-### Production Implementation
-
-⚠️ **Important**: The demo code (`123456`) is for development only. In production:
-
-1. **Server-side Verification**
-```javascript
-// ❌ Don't do this in production
-correctCode="123456"
-
-// ✅ Do this instead
-verifyCode={async (code) => {
-  const response = await fetch('/api/verify-2fa', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code, sessionId })
-  });
-  return response.ok;
-}}
-```
-
-2. **Rate Limiting**
-- Implement server-side rate limiting
-- Use exponential backoff for failed attempts
-- Consider temporary account lockouts
-
-3. **Session Management**
-- Use secure session tokens
-- Implement proper CSRF protection
-- Validate session state on server
-
-4. **Code Generation**
-- Use time-based codes (TOTP)
-- Implement proper secret key management
-- Support backup codes
-
-### Best Practices
-
-- Never store codes in client-side code
-- Always validate on the server
-- Use HTTPS in production
-- Implement proper error handling
-- Log security events for monitoring
-- Consider biometric fallbacks
-
-## 🧪 Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-```
 
 ### Test Coverage
 
