@@ -406,7 +406,9 @@
 						<div bind:this={otpContainers[i]} class="otp-input-container relative w-12 h-14 flex items-center justify-center border border-[#D1D5DB] rounded-lg bg-white transition-all duration-200 ease-in-out">
 							<input
 								bind:this={otpInputs[i]}
-								type="text"
+								type="tel"
+								inputmode="numeric"
+								pattern="[0-9]*"
 								class="otp-input absolute top-0 left-0 w-full h-full border-none bg-transparent text-center text-[28px] font-medium text-transparent outline-none z-[3] caret-transparent"
 								maxlength="1"
 								data-index={i}
@@ -428,7 +430,9 @@
 						<div bind:this={otpContainers[index]} class="otp-input-container relative w-12 h-14 flex items-center justify-center border border-[#D1D5DB] rounded-lg bg-white transition-all duration-200 ease-in-out">
 							<input
 								bind:this={otpInputs[index]}
-								type="text"
+								type="tel"
+								inputmode="numeric"
+								pattern="[0-9]*"
 								class="otp-input absolute top-0 left-0 w-full h-full border-none bg-transparent text-center text-[28px] font-medium text-transparent outline-none z-[3] caret-transparent"
 								maxlength="1"
 								data-index={index}
